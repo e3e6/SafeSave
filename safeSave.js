@@ -7,7 +7,7 @@ var _objectType;
  */
 function manualRequest(url, params, currentLastModif)
 {
-  var xmlhttp;
+	var xmlhttp;
 	if (window.XMLHttpRequest)
 	{// code for IE7+, Firefox, Chrome, Opera, Safari
 	  xmlhttp=new XMLHttpRequest();
@@ -37,6 +37,9 @@ function manualRequest(url, params, currentLastModif)
 	xmlhttp.send();
 }
 
+
+
+
 /**
  *
  */
@@ -50,6 +53,8 @@ function processSafeSave(response, currentLastModif){
      {
     	debug('.save');
     	updateLabel('Save...');
+
+        updateToken(response);
      	
      	//Entellitrak save
      	eval(getEntellitrakSaveFunctionName() + '()');
@@ -81,6 +86,19 @@ function getEntellitrakSaveFunctionName(){
 
 }
 
+function updateToken(response){
+    var TOKEN_TAG_NAME = 'org.apache.struts.taglib.html.TOKEN';
+    var token = document.getElementsByName(TOKEN_TAG_NAME);
+
+    if(token && token.length > 0){
+        token = token[0];
+
+        var tokenCode = response.substr(response.indexOf(TOKEN_TAG_NAME)+TOKEN_TAG_NAME.length, 45);
+            tokenCode = tokenCode.substring(tokenCode.indexOf('="')+2, tokenCode.lastIndexOf('"'));
+
+        token.value = tokenCode;
+    }
+}
 
 function getUnsafeButtonHTML(){
 	return'<a href="javascript:' 
@@ -323,7 +341,6 @@ function installSaveListener(){
     	if(e.which == 17) isCtrl=true; 
     	if(e.which == 83 && isCtrl == true) { 
     		//run code for CTRL+S -- ie, save! 
-    		isCtrl = false;
     		safeSave();
     		return false; 
    		} 
