@@ -296,8 +296,8 @@ function installSaveListener(){
 	if(window.jQuery){
 	    jQuery(document).keydown(onDocumentKeyDown);
 	}else{
-      debug("Ctrl-S is works properly only with jQuery. Please update safeSave user script.");
-      //window.open('https://raw.github.com/e3e6/SafeSave/master/SafeSave.user.js', '_blank');
+            debug("Ctrl-S is works properly only with jQuery. Please update safeSave user script.");
+           //window.open('https://raw.github.com/e3e6/SafeSave/master/SafeSave.user.js', '_blank');
 	}
 }
 
@@ -351,6 +351,8 @@ function listen(evnt, elem, func) {
  * Entry
  */
  //listen("load", window, installSaveListener);
- $.noConflict();
- jQuery(document).ready(installSaveListener);
-//installSaveListener();
+
+if(window.jQuery){
+     $.noConflict();	
+}
+installSaveListener();
