@@ -280,7 +280,7 @@ function updateLabel(text){
  *
  */
 function installSaveListener(){
-  if(window.jQuery) $.noConflict();
+  if(window.$) $.noConflict();
 	buttons = document.getElementById('toolbar').getElementsByTagName('li');
 
 	btn = buttons[getButtonIndex()].getElementsByTagName('a')[0];
