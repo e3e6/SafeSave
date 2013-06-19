@@ -246,13 +246,7 @@ function safeSave(){
  */
 function updateLabel(text){
 
-	
-
 	if(labelEl === undefined){
-		// label = document.createElement("label"); 
-  //                 label.setAttribute('id', 'safeLabel');
-  //                 label.setAttribute('style', 'vertical-align: middle;');
-  //                 label.appendChild(document.createTextNode('Safe Save'));
 
 		hint = document.createElement("li"); 
                   hint.setAttribute('id', 'safeSave');
@@ -286,6 +280,7 @@ function updateLabel(text){
  *
  */
 function installSaveListener(){
+
 	buttons = document.getElementById('toolbar').getElementsByTagName('li');
 
 	btn = buttons[getButtonIndex()].getElementsByTagName('a')[0];
@@ -298,53 +293,23 @@ function installSaveListener(){
 
 
 	updateLabel('Safe Save Initiated.');
-                  //document.body.insertBefore(hint, document.getElementsByClassName('titleBar')[0]);
-
-
-/*
-
-	var label = document.createElement("label"); 
-                  label.setAttribute('style', 'vertical-align: middle;');
-                  label.appendChild(document.createTextNode('Safe Save'));
-
-
-
-	var hint = document.createElement("div"); 
-                  hint.setAttribute('class', 'dev-hint');
-                  hint.setAttribute('style', ' padding: 0.5em; background-color: #FFFFCC; position: relative;'+
-                  							 ' color: black; text-align: right; vertical-align: middle;');
-                  hint.appendChild(label);
-
-                  document.body.insertBefore(hint, document.getElementsByClassName('titleBar')[0]);
-
-    */              
-
-    //Ctrl-S Handler
-    // document.onkeydown=function(e){ 
-    // 	if(e.which == 17) {
-    // 		isCtrl=true; 
-    // 	}else{
-    // 		isCtrl=false;
-    // 	}
-    // 	if(e.which == 83 && isCtrl == true) { 
-    //  		//run code for CTRL+S -- ie, save! 
-    //  		safeSave();
-    //  		return false; 
-    //  	} 
-    // }
-
-    var isCtrl = false; 
-    document.onkeyup=function(e){ 
-    	if(e.which == 17) isCtrl=false; 
-    } 
-    document.onkeydown=function(e){ 
-    	if(e.which == 17) isCtrl=true; 
-    	if(e.which == 83 && isCtrl == true) { 
-    		//run code for CTRL+S -- ie, save! 
-    		safeSave();
-    		return false; 
-   		} 
+	
+	if(window.jQuery){
+	    jQuery(document).keydown(onDocumentKeyDown);
+	}else{
+      alert("Ctrl-S is works properly only with jQuery. Please update safeSave user script.");
+      window.open('https://raw.github.com/e3e6/SafeSave/master/SafeSave.user.js', '_blank');
 	}
+}
+
+/**
+ *
+ */
+function onDocumentKeyDown(event) {
+  if(event.ctrlKey && event.keyCode == 83/*s*/) {
+      safeSave();
+    	return false;
+  }
 }
 
 /**
@@ -372,3 +337,4 @@ function debug(msg){
  * Entry
  */
 installSaveListener();
+if(window.jQuery) $.noConflict();
