@@ -23,10 +23,12 @@
  * Add codemirror
  */
 
-var scriptsLocal = ["http://localhost:801/external/safeSave.js"];
+var scriptsLocal = ["http://code.jquery.com/jquery-1.10.1.min.js",
+                    "http://localhost:801/external/safeSave.js"];
 
 
-var scripts = ["https://raw.github.com/e3e6/SafeSave/master/safeSave.js",
+var scripts = ["http://code.jquery.com/jquery-1.10.1.min.js",
+               "https://raw.github.com/e3e6/SafeSave/master/safeSave.js",
   //             "http://localhost:801/external/codemirror.js",
  //              "http://localhost:801/external/codemirror-ui.js",
 
