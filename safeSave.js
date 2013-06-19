@@ -280,7 +280,7 @@ function updateLabel(text){
  *
  */
 function installSaveListener(){
-
+  if(window.jQuery) $.noConflict();
 	buttons = document.getElementById('toolbar').getElementsByTagName('li');
 
 	btn = buttons[getButtonIndex()].getElementsByTagName('a')[0];
@@ -332,9 +332,24 @@ function debug(msg){
   }
 }
 
+/**
+ * Cross-browser listener
+ * @param evnt Event name
+ * @param elem Element
+ * @param func Function will be executed when event will occur
+ * @returns {*}
+ */
+function listen(evnt, elem, func) {
+    if (elem.addEventListener)  // W3C DOM
+        elem.addEventListener(evnt,func,false);
+    else if (elem.attachEvent) { // IE DOM
+        var r = elem.attachEvent("on"+evnt, func);
+        return r;
+    }
+}
 
 /**
  * Entry
  */
-installSaveListener();
-if(window.jQuery) $.noConflict();
+ listen("load", window, installSaveListener);
+//installSaveListener();
