@@ -280,7 +280,6 @@ function updateLabel(text){
  *
  */
 function installSaveListener(){
-  if(window.$) $.noConflict();
 	buttons = document.getElementById('toolbar').getElementsByTagName('li');
 
 	btn = buttons[getButtonIndex()].getElementsByTagName('a')[0];
@@ -297,8 +296,8 @@ function installSaveListener(){
 	if(window.jQuery){
 	    jQuery(document).keydown(onDocumentKeyDown);
 	}else{
-      alert("Ctrl-S is works properly only with jQuery. Please update safeSave user script.");
-      window.open('https://raw.github.com/e3e6/SafeSave/master/SafeSave.user.js', '_blank');
+      debug("Ctrl-S is works properly only with jQuery. Please update safeSave user script.");
+      //window.open('https://raw.github.com/e3e6/SafeSave/master/SafeSave.user.js', '_blank');
 	}
 }
 
@@ -351,5 +350,7 @@ function listen(evnt, elem, func) {
 /**
  * Entry
  */
- listen("load", window, installSaveListener);
+ //listen("load", window, installSaveListener);
+ $.noConflict();
+ jQuery(document).ready(installSaveListener);
 //installSaveListener();
